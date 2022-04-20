@@ -36,7 +36,7 @@
                 <div class="md:flex md:items-center hidden px-24 py-4 sm:block float-right">
                     @auth
                         <div class="text-lg mt-8 md:w-2/3">
-                            <label class="mt-4">Logged as {{auth()->user()->name}}</label>
+                            <label class="mt-4">Logged as {{auth()->usuarios()->nombre}}</label>
                         </div>
                         <div class="md:w-1/3">
                             <form action="{{route("logout")}}" method="post">
@@ -65,10 +65,10 @@
             <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
                 <ul class="flex flex-col md:flex-row md:space-x-8 md:font-medium">
                     <li>
-                        <a href="#" class="text-2xl block py-2 pr-8 text-black rounded md:bg-transparent dark:text-white " aria-current="page">Home</a>
+                        <a href="/store" class="text-2xl block py-2 pr-8 text-black rounded md:bg-transparent dark:text-white " aria-current="page">Home</a>
                     </li>
                     <li>
-                        <a href="#" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0  dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Products</a>
+                        <a href="{{route('products.index')}}" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0  dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Products</a>
                     </li>
                     <li>
                         <a href="#" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
@@ -82,6 +82,7 @@
     </nav>
 </header>
 <main class="mb-auto mt-20">
+    @yield("content")
 </main>
 <footer class="text-center lg:text-left bg-rose-700 text-black">
     <div class="flex justify-center items-center lg:justify-between p-6 border-b border-gray-300">

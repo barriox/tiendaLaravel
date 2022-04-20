@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\ProductsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-Route::view("/","layout");
+Route::view("/","store");
+
+Route::view("/store","store");
+
 Route::view("/layout","layout");
+
+Route::resource("products", ProductsController::class);
 
 require __DIR__.'/auth.php';
