@@ -15,5 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::view("/","layout");
+Route::view("/layout","layout");
 
 require __DIR__.'/auth.php';
