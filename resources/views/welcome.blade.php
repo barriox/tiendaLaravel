@@ -1,39 +1,27 @@
-<!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Laravel</title>
-    <link rel="stylesheet" href="{{asset("css/app.css")}}">
-</head>
-<body class="antialiased">
-<header>
-    <div>
-        <img src="" alt="logo">
-        <h1>Empresa de ventas</h1>
-    </div>
-    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 dark:bg-gray-900 sm:items-center py-4 sm:pt-0">
-        @if (Route::has('login'))
-            <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
-                @auth
-                    Logged as {{auth()->user()->name}}
-                    <form action="{{route("logout")}}" method="post">
-                        @csrf
-                        <button type="submit">Logout</button>
-                    </form>
-                @else
-                    <a href="{{ route('login') }}" class="text-sm text-gray-700 dark:text-gray-500 underline">Log in</a>
 
-                    @if (Route::has('register'))
-                        <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                    @endif
-                @endauth
-            </div>
-        @endif
+@extends('layout')
+
+@section("nav")
+    <li>
+        <a href="/store" class="text-2xl block py-2 pr-8 text-black rounded md:bg-transparent dark:text-white " aria-current="page">Home</a>
+    </li>
+    @auth
+        <li>
+            <a href="{{route('products.index')}}" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0  dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Products</a>
+        </li>
+        <li>
+            <a href="#" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
+        </li>
+        <li>
+            <a href="#" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
+        </li>
+    @endauth
+@endsection
+@section("content")
+    <h1 class="text-8xl text-center">Esta es la seccion principal.</h1>
+    <h2 class="text-xl text-center">Registrate para acceder a todos nuestros contenidos.</h2>
+    <div class="flex justify-center mt-10 h-96">
+        <img src="{{asset("images/productos.png")}}" alt="productos">
     </div>
-</header>
-<footer>
-<h3>hola</h3>
-</footer>
-</body>
-</html>
+@endsection
+

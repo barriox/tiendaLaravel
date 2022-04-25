@@ -19,40 +19,48 @@
     <link rel="icon" type="image/png" sizes="96x96" href="{{asset("images/favicon/favicon-96x96.png")}}">
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset("images/favicon/favicon-16x16.png")}}">
     <link rel="manifest" href="{{asset("images/favicon/manifest.json")}}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <meta name="msapplication-TileColor" content="#ffffff">
     <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
 </head>
 <body class="antialiased flex flex-col h-screen justify-between">
-<header class="bg-amber-500 h-32">
+<header class="bg-amber-500 mb-auto">
     <div class="flex flex-row">
-        <div class="basis-4/6 items-top justify-start inline-flex">
+        <div class="w-4/6 items-top justify-start inline-flex">
             <img src="{{asset("images/logo.png")}}" alt="logo" class="w-32 h-32">
             <h1 class="ml-44 text-6xl justify-center mt-10">Company Sales</h1>
         </div>
-        <div class="basis-2/6">
-            @if (Route::has('login'))
-                <div class="md:flex md:items-center hidden px-24 py-4 sm:block float-right">
-                    @auth
-                        <div class="text-lg mt-8 md:w-2/3">
-                            <label class="mt-4">Logged as {{auth()->usuarios()->nombre}}</label>
-                        </div>
-                        <div class="md:w-1/3">
-                            <form action="{{route("logout")}}" method="post">
-                                @csrf
-                                <button type="submit">Logout</button>
-                            </form>
-                        </div>
-                    @else
-                        <button class="md:w-2/3"><a href="{{ route('login') }}">Log in</a></button>
-
-                        @if (Route::has('register'))
-                                <button class="md:w-1/3"><a href="{{ route('register') }}">Register</a></button>
-                        @endif
-                    @endauth
+        <div class="w-2/6">
+            @auth
+                <div class="flex justify-end">
+                    <div class="text-lg mt-8 w-2/3">
+                        <label class="ml-60 mt-4">Logged as {{auth()->user()->name}}</label>
+                    </div>
+                    <div class="w-1/3">
+                        <form action="{{route("logout")}}" method="post">
+                            @csrf
+                            <x-button type="submit">Logout</x-button>
+                        </form>
+                    </div>
                 </div>
-            @endif
+            @endauth
+            @guest
+                <form action="{{route('login')}}" method="POST">
+                    @csrf
+                    <x-input name="email" placeholder="Email" value="{{old('email')}}" class="h-8"></x-input>
+                    <x-input name="password" type="password" placeholder="Contraseña" class="h-8"></x-input>
+                    <x-button>Login</x-button>
+                    <div class="flex mt-4">
+                        @if($errors->any())
+                            <i class="mt-2 fa fa-exclamation-triangle"></i><x-label class="text-red-800  mt-2 mr-8 border-black">Login incorrecto</x-label>
+                        @endif
+                        <x-label class="mt-2">¿Todavía no tienes cuenta?</x-label>
+                        <x-ancla ref="{{route('register')}}" class="ml-8">Registrarme</x-ancla>
+                    </div>
+                </form>
+            @endguest
         </div>
     </div>
     <nav class="bg-red-600">
@@ -64,27 +72,16 @@
             </button>
             <div class="hidden w-full md:block md:w-auto" id="mobile-menu">
                 <ul class="flex flex-col md:flex-row md:space-x-8 md:font-medium">
-                    <li>
-                        <a href="/store" class="text-2xl block py-2 pr-8 text-black rounded md:bg-transparent dark:text-white " aria-current="page">Home</a>
-                    </li>
-                    <li>
-                        <a href="{{route('products.index')}}" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0  dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Products</a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">About</a>
-                    </li>
-                    <li>
-                        <a href="#" class="text-2xl block py-2 pr-8 pl-3 text-black border-b md:hover:bg-transparent md:border-0 dark:text-gray-400 md:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Contact</a>
-                    </li>
+                    @yield("nav")
                 </ul>
             </div>
         </div>
     </nav>
 </header>
-<main class="mb-auto mt-20">
+<main class="mt-20 bg-back">
     @yield("content")
 </main>
-<footer class="text-center lg:text-left bg-rose-700 text-black">
+<footer class="mt-20 text-center lg:text-left bg-rose-700 text-black">
     <div class="flex justify-center items-center lg:justify-between p-6 border-b border-gray-300">
         <div class="mr-12 hidden lg:block">
             <span>Get connected with us on social networks:</span>
@@ -255,3 +252,4 @@
 </footer>
 </body>
 </html>
+

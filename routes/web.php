@@ -14,11 +14,9 @@ use App\Http\Controllers\ProductsController;
 */
 
 
-Route::view("/","store");
+Route::view("/","welcome");
 
 Route::view("/store","store");
-
-Route::view("/layout","layout");
 
 Route::resource("products", ProductsController::class);
 
